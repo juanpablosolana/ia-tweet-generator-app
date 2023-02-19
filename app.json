@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "tweet-app",
-    "slug": "tweet-app",
+    "name": "Tweet AI Generator",
+    "slug": "tweetAIGenerator",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,6 +21,8 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.tweetAIGenerator",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
