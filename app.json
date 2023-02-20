@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Tweet AI Generator",
-    "slug": "tweetAIGenerator",
+    "slug": "tweet-ai-generator",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -30,6 +30,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b5c74f29-3dbe-46c0-88c5-0eaaecd9a6d1"
+      }
+    },
+    "owner": "setarroba"
   }
 }
