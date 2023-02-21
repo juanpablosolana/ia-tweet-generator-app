@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { View, Text, TextInput, Button, ActivityIndicator, Image, StyleSheet, Linking } from 'react-native'
 import createTweet from '../services/createTweet'
 import { imageDefaultUrl } from '../constant'
+import { Colors } from 'react-native/Libraries/NewAppScreen'
 export default function Main () {
   const [formTweet, setFormTweet] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -37,6 +38,7 @@ export default function Main () {
       <TextInput
         style={styles.TextInput}
         placeholder="Type here to tweet!"
+        placeholderTextColor="#9a73ef"
         onChangeText={text => setFormTweet(text)}
       />
       {!isLoading &&
@@ -69,7 +71,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold',
     textAlign: 'center',
-    margin: 10
+    margin: 10,
+    color: Colors.white
   },
   Button: {
     margin: 20
@@ -79,16 +82,21 @@ const styles = StyleSheet.create({
     width: 300,
     borderColor: 'gray',
     borderWidth: 1,
-    margin: 20
+    margin: 20,
+    padding: 10,
+    borderRadius: 10,
+    color: Colors.white
   },
   Image: {
     width: 250,
     height: 250,
-    margin: 20
+    margin: 20,
+    borderRadius: 10
   },
   Message: {
     fontSize: 15,
     textAlign: 'center',
-    margin: 10
-  }
+    margin: 10,
+    color: '#9a73ef',
+  },
 })
