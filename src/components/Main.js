@@ -1,5 +1,15 @@
 import { useState } from 'react'
-import { View, Text, TextInput, Button, ActivityIndicator, Image, StyleSheet, Linking } from 'react-native'
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Linking,
+  Keyboard
+} from 'react-native'
 import createTweet from '../services/createTweet'
 import { imageDefaultUrl } from '../constant'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
@@ -7,17 +17,23 @@ export default function Main () {
   const [formTweet, setFormTweet] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [message, setMessage] = useState('')
-  const [imgGenerator, setImgGenerator] = useState(imageDefaultUrl)
+  const [image, setImage] = useState(imageDefaultUrl)
+  const [shareTweet, setShareTweet] = useState(false)
 
   const handlerCreateTweet = () => {
+    Keyboard.dismiss()
+    if (formTweet === '') return alert('Please type something to tweet!')
+    Keyboard.dismiss()
     setIsLoading(true)
+    setShareTweet(false)
     Promise.all([
       createTweet('tweet', formTweet),
       createTweet('image', formTweet)
     ])
-      .then(([message, imgGenerator]) => {
+      .then(([message, image]) => {
         setMessage(message)
-        setImgGenerator(imgGenerator)
+        setImage(image)
+        setShareTweet(true)
       })
       .catch((error) => {
         setMessage('Error, IA timeout or invalid category', error)
@@ -32,31 +48,50 @@ export default function Main () {
     Linking.openURL(url)
   }
 
+  const handlerCheckEnterKey = (event) => {
+    console.log(event.Button)
+    if (event.key === 'Enter') {
+      alert('Tweet sent!')
+    }
+  }
+
   return (
     <View style={styles.Container}>
-      <Text style={styles.Text}>Amazing Tweet AI Generator</Text>
+      <Text style={styles.Text}>Tweet AI Generator</Text>
       <TextInput
         style={styles.TextInput}
         placeholder="Type here to tweet!"
         placeholderTextColor="#9a73ef"
         onChangeText={text => setFormTweet(text)}
+        returnKeyType="tweet"
+        onSubmitEditing={() => handlerCreateTweet()}
       />
-      {!isLoading &&
+      {
+        !isLoading &&
         <Button
-        style={styles.Button}
-        title="Generate AI tweet"
-        onPress={handlerCreateTweet}
-      />}
-      <Image
+          style={styles.Button}
+          title="Generate AI tweet"
+          onPress={handlerCreateTweet}
+        />
+      }
+      {
+        !isLoading && <Image
         style={styles.Image}
-        source={{ uri: imgGenerator }}
-      />
-      {isLoading ? <ActivityIndicator /> : <Text style={styles.Message}>{message}</Text>}
-      <Button
+        source={{ uri: image }}
+        />
+      }
+      {
+        isLoading
+          ? <ActivityIndicator size='large' color='#9a73ef' />
+          : <Text style={styles.Message}>{message}</Text>
+      }
+      {
+        shareTweet && <Button
         style={styles.Button}
         title="Share on Twitter!"
         onPress={handlershareTweet}
-      />
+        />
+      }
     </View>
   )
 }
@@ -75,7 +110,8 @@ const styles = StyleSheet.create({
     color: Colors.white
   },
   Button: {
-    margin: 20
+    margin: 20,
+    width: 300,
   },
   TextInput: {
     height: 50,
