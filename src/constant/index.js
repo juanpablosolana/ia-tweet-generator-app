@@ -1,3 +1,3 @@
-const imageDefaultUrl = 'https://openai-labs-public-images-prod.azureedge.net/user-tCPvTKI6Pso3HGPyZ1f2Xsej/generations/generation-MYtnZb2JIvgSLqbMkBRbrZMk/image.webp'
+const imageDefaultUrl = 'https://www.tweetgenerator.app/_next/image?url=%2Flogo.png&w=640&q=75'
 
 export { imageDefaultUrl }

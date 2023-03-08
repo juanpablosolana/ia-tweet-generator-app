@@ -58,9 +58,10 @@ export default function Main () {
   return (
     <View style={styles.Container}>
       <Text style={styles.Text}>Tweet AI Generator</Text>
+      <Text style={styles.TextLabel}>Type a subject for which you would like to generate a tweet:</Text>
       <TextInput
         style={styles.TextInput}
-        placeholder="Type here to tweet!"
+        placeholder="e.g: pets, Beethoven history, mexican food, etc."
         placeholderTextColor="#9a73ef"
         onChangeText={text => setFormTweet(text)}
         returnKeyType="tweet"
@@ -107,6 +108,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     margin: 10,
+    color: Colors.white
+  },
+  TextLabel: {
+    fontSize: 12,
+    marginTop: 10,
     color: Colors.white
   },
   Button: {
